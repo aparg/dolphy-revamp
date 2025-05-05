@@ -38,22 +38,22 @@ export const metadata = {
 };
 
 // Server-side data fetching
-async function getBlogs() {
-  try {
-    const res = await fetch("https://admin.dolphy.ca/api/posts/", {
-      next: { revalidate: 3600 },
-      headers: { Accept: "application/json" },
-    });
+// async function getBlogs() {
+//   try {
+//     const res = await fetch("https://admin.dolphy.ca/api/posts/", {
+//       next: { revalidate: 3600 },
+//       headers: { Accept: "application/json" },
+//     });
 
-    if (!res.ok) throw new Error("Failed to fetch blogs");
+//     if (!res.ok) throw new Error("Failed to fetch blogs");
 
-    const data = await res.json();
-    return data.data || { results: [] };
-  } catch (error) {
-    console.error("Error fetching blogs:", error);
-    return { results: [] };
-  }
-}
+//     const data = await res.json();
+//     return data.data || { results: [] };
+//   } catch (error) {
+//     console.error("Error fetching blogs:", error);
+//     return { results: [] };
+//   }
+// }
 
 // Structured Data for SEO
 const websiteSchema = {
@@ -102,7 +102,7 @@ const corporationSchema = {
 
 export default async function Home() {
   // Server-side data fetching
-  const blogsData = await getBlogs();
+  // const blogsData = await getBlogs();
 
   return (
     <>
