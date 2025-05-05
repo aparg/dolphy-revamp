@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 54.786 54.341">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: snow;
+      }
+    </style>
+  </defs>
+  <g id="Group_3" data-name="Group 3" transform="translate(-231 -6800)">
+    <ellipse id="Ellipse_1" data-name="Ellipse 1" class="cls-1" cx="27.393" cy="27.17" rx="27.393" ry="27.17" transform="translate(231 6800)"/>
+    <image id="building-icon" width="26.516" height="26.516" transform="translate(244.968 6813.951)" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAABDElEQVRoge2VMQ4BURRFzxdRoTeWYh1KDXsQ0UhYBxKtbWAnbECneRoKybwZjM8z8041xbvJv//+NzegIH0atFkgDICONvclTsCGM7Ow5ZI2UFelLeYI41gne5EEmNBEgGnaQNCUMuQIJAi9sOYQ6YBPISN6CDvgFFZ002ZqGfoE4NcmAMKS/e0z0WayjPwVpTGiL7uCDJFnZ8PqcQeLaPOobiJ3sm4s7+aLaDVKk4gbscbbO/LuWy6q1ahuIq/+3z+lzaO6iXizR8ab3RpuxBre7NbwZreGN7s1vNmt4Uas4c1uDW92a3izW8Ob3RpuxBo/afYYVDeRmO1chNIk4kas8fGGjY22o6VJ5Ao5qWGcYISejgAAAABJRU5ErkJggg=="/>
+  </g>
+</svg>

@@ -1,0 +1,58 @@
+export const preconPopularCities = [
+  {
+    name: "Toronto",
+    image: "/city-images/toronto.jpg",
+    province: "Ontario",
+    url: "/toronto",
+    count: "200+ Projects",
+  },
+  {
+    name: "Mississauga",
+    image: "/city-images/mississauga.jpg",
+    province: "Ontario",
+    url: "/mississauga",
+    count: "100+ Projects",
+  },
+  {
+    name: "Brampton",
+    image: "/city-images/brampton.jpg",
+    province: "Ontario",
+    url: "/brampton",
+    count: "80+ Projects",
+  },
+  {
+    name: "Oakville",
+    image: "/city-images/oakville.jpg",
+    province: "Ontario",
+    url: "/oakville",
+    count: "60+ Projects",
+  },
+  {
+    name: "Hamilton",
+    image: "/city-images/hamilton.jpg",
+    province: "Ontario",
+    url: "/hamilton",
+    count: "70+ Projects",
+  },
+  {
+    name: "Milton",
+    image: "/city-images/milton.jpeg",
+    province: "Ontario",
+    url: "/milton",
+    count: "40+ Projects",
+  },
+  {
+    name: "Calgary",
+    image: "/city-images/calgary.jpg",
+    province: "Alberta",
+    url: "/calgary",
+    count: "50+ Projects",
+  },
+  {
+    name: "Edmonton",
+    image: "/city-images/edmonton.jpg",
+    province: "Alberta",
+    url: "/edmonton",
+    count: "50+ Projects",
+  },
+];
