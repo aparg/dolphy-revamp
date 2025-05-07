@@ -2,11 +2,11 @@ import Link from "next/link";
 import nFormatter from "./nFormatter";
 
 export default function CondoCard(props) {
-  function checkPricing(price) {
-    if (parseInt(price) > 0) {
-      return `Starting from $${nFormatter(price, 2)}`;
-    } else {
+  function checkPricing(prii) {
+    if (parseInt(prii) == 0) {
       return `Pricing not available`;
+    } else {
+      return `Starting from low $${nFormatter(prii, 2)}`;
     }
   }
 
@@ -39,7 +39,7 @@ export default function CondoCard(props) {
 
   return (
     <>
-      <div className="card border-0 shadow-lg my-3 p-[1.6rem] rounded-2xl overflow-hidden">
+      <div className="card border-0 shadow-lg my-3 p-[1rem] rounded-2xl overflow-hidden">
         <div className="relative max-h-72 h-72">
           <Link
             href={`/pre-construction-homes/${props.city.slug}/${props.slug}`}
@@ -71,7 +71,15 @@ export default function CondoCard(props) {
         <div className="p-4">
           <h3 className="text-xl font-bold">{props.project_name}</h3>
           <p className="text-gray-600 leading-6">{props.project_type}</p>
-          <p className="text-gray-500 leading-6">{props.project_address}</p>
+          <h4 className="text-[0.9rem] font-normal text-[#006169] my-0">
+            {checkPricing(props.price_starting_from)}
+          </h4>
+          <h5 className="truncate text-[0.9rem] my-0">
+            {props.project_address}
+          </h5>
+          <p className="text-[0.9rem] truncate my-0">
+            Occupancy {props.occupancy}
+          </p>
           <div className="flex text-[1.4rem] justify-between items-center bg-[#f5f5f5] rounded-xl p-4 my-2">
             <div className="flex flex-col justify-between w-[50%] items-center">
               <span className="font-bold text-sm">Launch Price</span>

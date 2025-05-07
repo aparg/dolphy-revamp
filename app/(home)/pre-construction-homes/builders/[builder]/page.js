@@ -97,7 +97,7 @@ export default async function BuilderSingle({ params }) {
                   <h2 className="main-title text-center mb-4">
                     Projects by {CapitalizeFirst(params.builder)}
                   </h2>
-                  <div className="row row-cols-1 row-cols-md-4 row-cols-lg-4 gy-4 gx-3 gx-lg-2">
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-y-4 gx-3 gx-lg-2">
                     {data &&
                       data.map((item) => (
                         <div className="col" key={item.id}>

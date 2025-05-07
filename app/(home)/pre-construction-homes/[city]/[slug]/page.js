@@ -441,7 +441,7 @@ export default async function Home({ params }) {
                 </Link>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 md:gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-2 md:gap-3">
                 {related &&
                   related.map((item) => (
                     <div className="col" key={item.id}>
@@ -514,7 +514,7 @@ export default async function Home({ params }) {
               </h2>
             </div>
             <div className="py-2"></div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-y-4">
               {related &&
                 related.map((item) => (
                   <div className="col" key={item.id}>

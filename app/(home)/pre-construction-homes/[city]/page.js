@@ -81,7 +81,7 @@ export default async function Home({ params }) {
       {/* <FixedContactButton></FixedContactButton> */}
       <div className="pt-4 relative">
         <div className="px-4 mx-auto">
-          <div className="pb-0">
+          <div className="pb-0  px-8">
             <h1 className="text-3xl font-bold text-center md:text-left mb-0">
               {`${
                 data.preconstructions.length
@@ -102,16 +102,16 @@ export default async function Home({ params }) {
               })`}
             </p>
           </div>
-          <div className="flex mb-4 mt-0 gap-2 overflow-hidden">
+          <div className="flex mb-4 mt-0 overflow-hidden px-8 py-3">
             <div>
               <Link
-                className="bg-white text-black py-2 px-4 rounded shadow-sm text-sm font-medium"
+                className="bg-white text-black py-2 px-4 rounded shadow-sm text-sm font-medium border-[1px] border-gray-200 mx-2"
                 href={`/pre-construction-homes/${params.city}/upcoming/`}
               >
                 Upcoming Projects in {CapitalizeFirst(params.city)}
               </Link>
               <Link
-                className="bg-white text-black py-2 px-4 rounded shadow-sm text-sm font-medium"
+                className="bg-white text-black py-2 px-4 rounded shadow-sm text-sm font-medium border-[1px] border-gray-200 mx-2"
                 href={`/pre-construction-homes/${params.city}/townhomes/`}
               >
                 New Townhomes {CapitalizeFirst(params.city)}
@@ -119,13 +119,13 @@ export default async function Home({ params }) {
             </div>
             <div>
               <Link
-                className="bg-white text-black py-2 px-4 rounded shadow-sm text-sm font-medium"
+                className="bg-white text-black py-2 px-4 rounded shadow-sm text-sm font-medium border-[1px] border-gray-200 mx-2"
                 href={`/pre-construction-homes/${params.city}/detached/`}
               >
                 New Detached Homes {CapitalizeFirst(params.city)}
               </Link>
               <Link
-                className="bg-white text-black py-2 px-4 rounded shadow-sm text-sm font-medium"
+                className="bg-white text-black py-2 px-4 rounded shadow-sm text-sm font-medium border-[1px] border-gray-200 mx-2"
                 href={`/pre-construction-homes/${params.city}/condos/`}
               >
                 New Condos {CapitalizeFirst(params.city)}
@@ -136,7 +136,7 @@ export default async function Home({ params }) {
         </div>
         <div className="px-4">
           <div className="py-2"></div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 px-4">
             {data.preconstructions &&
               filteredprojects("Selling").map((item, no) => (
                 <div className="col" key={item.id}>
@@ -153,7 +153,7 @@ export default async function Home({ params }) {
           </div>
           <div className="pt-5 mt-5"></div>
           <div className="pt-5"></div>
-          <h2 className="fw-bold fs-3 mb-4">
+          <h2 className="font-bold text-3xl mb-4">
             {filteredprojects("Upcoming").length > 0 ? (
               `Launching Soon - New Construction Projects in ${CapitalizeFirst(
                 data.city.name
@@ -162,7 +162,7 @@ export default async function Home({ params }) {
               <></>
             )}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {data.preconstructions &&
               filteredprojects("Planning Phase").map((item, no) => (
                 <div className="col" key={item.id}>
@@ -192,7 +192,7 @@ export default async function Home({ params }) {
           </div>
           <div className="pt-5 mt-5"></div>
           <div className="pt-5"></div>
-          <h2 className="fw-bold fs-3 mb-4 text-red">
+          <h2 className="font-bold text-3xl mb-4 text-red">
             {filteredprojects("Sold out").length > 0 ? (
               <i>{`Past Communities in ${CapitalizeFirst(
                 data.city.name
@@ -201,7 +201,7 @@ export default async function Home({ params }) {
               <></>
             )}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {data.preconstructions &&
               filteredprojects("Sold out").map((item, no) => (
                 <div className="col" key={item.id}>
