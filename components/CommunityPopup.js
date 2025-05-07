@@ -219,7 +219,7 @@ export default function CommunityPopup() {
 
             {/* Title with Gradient */}
             <h2 className="text-2xl font-extrabold text-center mt-1 mb-1 ">
-              JOIN HOMEBABA COMMUNITY
+              JOIN DOLPHY COMMUNITY
             </h2>
             <p className="text-gray-600 text-center text-sm italic">
               Be the First to Know About New Projects!

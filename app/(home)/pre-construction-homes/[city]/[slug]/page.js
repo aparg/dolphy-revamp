@@ -1,7 +1,6 @@
 import nFormatter from "@/helpers/nFormatter";
 import CondoCard from "@/components/CondoCard";
 import BottomContactForm from "@/components/BottomContactForm";
-import Accordion from "@/components/Accordion";
 import SideContactForm from "@/components/SideContactForm";
 import { notFound } from "next/navigation";
 import Gallery from "@/components/Gallery";
@@ -10,6 +9,16 @@ import Link from "next/link";
 import PreconSchema from "@/components/PreconSchema";
 import FixedContactButton from "@/components/FixedContactButton";
 import FloorPlans from "@/components/FloorPlans";
+import ListingInfo from "@/components/listing/ListingInfo";
+import SidebarContact from "@/components/listing/SidebarContact";
+import BannerPrecon from "@/components/listing/BannerPrecon";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
+import Image from "next/image";
 
 async function getData(slug) {
   const res = await fetch(
@@ -93,7 +102,7 @@ export default async function Home({ params }) {
 
   const doTOcheck2 = (noo) => {
     if (parseInt(noo) != 0) {
-      return "Low $ " + Nformatter(noo, 2);
+      return "Low $ " + nFormatter(noo, 2);
     } else {
       return "Pricing not available";
     }
@@ -138,6 +147,13 @@ export default async function Home({ params }) {
     },
   ];
 
+  function slugify(text) {
+    return text
+      .toLowerCase()
+      .replace(/ /g, "-")
+      .replace(/[^\w-]+/g, "");
+  }
+
   return (
     <>
       <script
@@ -147,199 +163,326 @@ export default async function Home({ params }) {
         }}
       />
       {/* <FixedContactButton></FixedContactButton> */}
-      <div className="pt-md-1">
-        <div className="container">
-          <Breadcrumb
-            homeElement={"Home"}
-            separator={
-              <span>
-                {" "}
-                <svg
-                  className="svg text-black w-[18px] h-[18px]"
-                  viewBox="0 0 32 32"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M17.65 16.513l-7.147-7.055 1.868-1.893 9.068 8.951-9.069 8.927-1.866-1.896z"
-                    fill={"#869099"}
-                  ></path>
-                </svg>{" "}
-              </span>
-            }
-            activeClasses="text-black"
-            containerClasses="flex items-center p-0 m-0 pt-4 breadcrumb"
-            listClasses="mx-1"
-            capitalizeLinks
-          />
+      <div className="max-w-7xl mx-auto px-0 sm:px-4">
+        <div className="w-full mt-2 md:mt-2 px-2 md:px-0">
           <Gallery
             images={data.image}
             project_name={data.project_name}
             project_address={data.project_address}
           ></Gallery>
-          <div className="container px-2 sm:px-0 pt-5 pt-md-1 mt-4 mt-md-0">
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 justify-between">
-              <div className="col-span-3 md:col-span-2">
-                <div className="screenshot">
-                  <div className="row row-cols-1 row-cols-sm-2">
-                    <div className="col-sm-12">
-                      <h1 className="main-title text-red font-medium">
-                        {data.project_name}
-                      </h1>
-                      <p className="mb-0">
-                        Developed By{" "}
-                        <strong>
-                          <Link
-                            className="text-black"
-                            href={`/pre-construction-homes/builders/${data.developer.slug}/`}
-                          >
-                            {data.developer.name}
-                          </Link>
-                        </strong>
-                      </p>
-                      <h2 className="vmain-title fs-3 fw-mine3 mt-1 mb-0">
-                        {checkPricing(data.price_starting_from, data.price_to)}
-                      </h2>
-                      <div className="mb-1">
-                        <span scope="col">Project status : {data.status}</span>
-                      </div>
-                      <div className="mb-1">
-                        <span className="me-2 fw-mine2 mb-2 fs-mine3">
-                          Project Location:
-                        </span>
-                        <span scope="col">
-                          {data.project_address}, {data.city.name}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="my-2"></div>
-                  <div className="features">
-                    <div className="mb-5 mt-5">
-                      <div className="rounded-mine">
-                        <div></div>
-                      </div>
-                    </div>
-                    <div className="py-5 pt-3">
-                      <h2 className="fw-bold fs-3">
-                        About {data.project_name} in {data.city.name}
-                      </h2>
-                      <div className="text-start mb-1 text-inside">
-                        <div
-                          className="iframe-container"
-                          dangerouslySetInnerHTML={{
-                            __html: data.description,
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="py-3 my-5  position-relative">
-                  <h2 className="fw-bold fs-4 pb-3">
-                    {data.floorplan.length > 0
-                      ? `See Available Floor Plans for ${data.project_name}`
-                      : `Floor Plans Coming Soon`}
-                  </h2>
-                  <div className="row row-cols-2 row-cols-md-3 row-cols-lg-3">
-                    {data.floorplan && data.floorplan.length > 0 && (
-                      <FloorPlans images={data.floorplan}></FloorPlans>
-                    )}
-                  </div>
-                </div>
-                <div className="py-3 my-5">
-                  <h2 className="fw-bold fs-4 pb-3">
-                    Walk Score for {data.project_name}
-                  </h2>
-                  <div>
-                    <div className="p-1">
-                      <div className="walkscore-container mt-2 p-1 rounded-mine">
-                        <iframe
-                          height="500px"
-                          title="Walk Score"
-                          className="ham"
-                          width="100%"
-                          src={
-                            "https://www.walkscore.com/serve-walkscore-tile.php?wsid=&amp&s=" +
-                            convDash(data.project_address) +
-                            "&amp;o=h&amp;c=f&amp;h=500&amp;fh=0&amp;w=737"
-                          }
-                        ></iframe>
-                        <script
-                          type="text/javascript"
-                          src="https://www.walkscore.com/tile/show-walkscore-tile.php"
-                        ></script>
-                      </div>
-                    </div>
-                  </div>
-                  {/* <div className="py-4">
-                    <h2 className="fw-bold fs-4">
-                      <span className="mx-1"></span>
-                      Project Location - {data.project_name}
-                    </h2>
-                    <div>
-                      <div className="bg-white p-1 rounded-mine">
-                        <div className="mx-5 px-5"></div>
-                        <Map
-                          id="ds"
-                          heightt="50vh"
-                          project_address={data.project_address}
-                          name={data.project_name}
-                        ></Map>
-                      </div>
-                    </div>
-                    <p className="small-text2 mb-2 mt-1">
-                      Note : The exact location of the project may be vary from
-                      the address shown here
-                    </p>
-                  </div> */}
-                </div>
+          <div className="max-w-5xl mx-auto px-2 sm:px-8 md:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-12 mt-2">
+              <div className="col-span-2 pe-0 lg:pe-6">
+                <Breadcrumb
+                  homeElement={"Home"}
+                  separator={
+                    <span>
+                      {" "}
+                      <svg
+                        className="svg h-3"
+                        viewBox="0 0 32 32"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M17.65 16.513l-7.147-7.055 1.868-1.893 9.068 8.951-9.069 8.927-1.866-1.896z"
+                          fill={"#869099"}
+                        ></path>
+                      </svg>{" "}
+                    </span>
+                  }
+                  activeClasses="text-dark"
+                  containerClasses="flex items-center p-0 m-0 pt-4 breadcrumb"
+                  listClasses="mx-1"
+                  capitalizeLinks
+                />
+                <ListingInfo house_detail={data} city={params.city} />
               </div>
-              <div className="col-span-3 sm:col-span-1 px-2" id="mycontact">
-                <div className="py-4 py-md-0"></div>
-                <div className="text-center">
-                  <img
-                    alt="Register Now Text Design"
-                    src="/reg.webp"
-                    className="img-fluid mb-3 side-contact-img"
-                  />
-                </div>
-                <div className="side-fix-contact mt-mine pe-0">
-                  <div className="m-1 p-4 py-3 shadow-lg rounded-mine bordt">
-                    <div className="grid grid-cols-2 items-center justify-center">
-                      <div className="col-span-1 h-40">
-                        <img
-                          src="/contact-image.png"
-                          alt="contact image"
-                          className="agent-img"
-                        />
-                      </div>
-                      <div className="col-span-1">
-                        <h5 className="font-bold text-center text-xl">
-                          Send a Message
-                        </h5>
-                        <p className="mb-0 text-center">
-                          <Link
-                            href="telto:(587) 887-2572"
-                            className="link-black"
-                          ></Link>
-                        </p>
-                      </div>
-                    </div>
-                    <div className="my-4"></div>
+
+              <div className="col-span-1 flex flex-col items-center mt-14 md:mt-0">
+                <div className="sticky top-10 w-full justify-center hidden md:flex">
+                  <div className="w-[350px] min-w-[350px] mx-auto">
+                    {console.log("HELLO")}
+                    {console.log(data)}
                     <SideContactForm
-                      proj_name={data.project_name}
-                      city={data.city.name}
-                      defaultmessage={
-                        "Please send me additional information about " +
-                        data.project_name +
-                        ".  Thank you"
-                      }
+                      projectName={data.project_name}
+                      city={params.city}
+                      partnerdata={data.partnerdata}
                     ></SideContactForm>
                   </div>
                 </div>
               </div>
             </div>
+
+            <BannerPrecon
+              projectName={data.project_name}
+              developer={data.developer}
+              project_type={data.project_type}
+              city={data.city.name}
+            />
+
+            <div className="max-w-3xl mx-auto mt-20 mb-20">
+              <h2 className="text-2xl md:text-3xl font-extrabold mb-6 text-center">
+                Summary of{" "}
+                <Link
+                  href={`/pre-construction-homes/${slugify(data.project_name)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold text-blue-700 hover:text-blue-900"
+                >
+                  {data.project_name}
+                </Link>{" "}
+                Project
+              </h2>
+              <div className="prose max-w-none text-base md:text-lg text-gray-700 leading-relaxed space-y-4">
+                <p>
+                  <Link
+                    href={`/pre-construction-homes/${slugify(
+                      data.project_name
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-blue-700 hover:text-blue-900"
+                  >
+                    {data.project_name}
+                  </Link>{" "}
+                  is an exciting{" "}
+                  <Link
+                    href={`/${
+                      data.city.name
+                    }/pre-construction-homes/${data.project_type.toLowerCase()}s`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-blue-700 hover:text-blue-900"
+                  >
+                    new pre construction home in {data.city.name}{" "}
+                  </Link>
+                  developed by{" "}
+                  <Link
+                    href={`/developers/${slugify(data.developer.name)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-blue-700 hover:text-blue-900"
+                  >
+                    {data.developer.name}
+                  </Link>
+                  , ideally located near {data.project_address},{" "}
+                  {data.city.name} ({data.postalcode}). Please note: the exact
+                  project location may be subject to change.
+                </p>
+                <p>
+                  {data.price_starting_from > 0 ? (
+                    <>
+                      Offering a collection of modern and stylish
+                      <Link
+                        href={`/${data.city.name.toLowerCase()}/pre-construction-homes/${data.project_type.toLowerCase()}s#selling`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-bold text-blue-700 hover:text-blue-900"
+                      >
+                        {" "}
+                        {data.project_type.toLowerCase()} for sale in{" "}
+                        {data.city.name},
+                      </Link>
+                      <Link
+                        href={`/pre-construction-homes/${slugify(
+                          data.project_name
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-bold text-blue-700 hover:text-blue-900"
+                      >
+                        {" "}
+                        {data.project_name}
+                      </Link>{" "}
+                      is launching with starting prices from the low{" "}
+                      {nFormatter(data.price_starting_from)}s (pricing subject
+                      to change without notice).
+                    </>
+                  ) : (
+                    <>
+                      Offering a collection of modern and stylish
+                      <Link
+                        href={`/${data.city.name.toLowerCase()}/pre-construction-homes/${data.project_type.toLowerCase()}s#selling`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-bold text-blue-700 hover:text-blue-900"
+                      >
+                        {" "}
+                        {data.project_type.toLowerCase()} for sale in{" "}
+                      </Link>
+                      {data.city.name},
+                      <Link
+                        href={`/${data.city.name}/${data.project_name}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-bold text-blue-700 hover:text-blue-900"
+                      >
+                        {" "}
+                        {data.project_name}
+                      </Link>{" "}
+                      pricing details will be announced soon.
+                    </>
+                  )}
+                </p>
+                <p>
+                  Set in one of{" "}
+                  <Link
+                    href="/resale/ontario"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-blue-700 hover:text-blue-900"
+                  >
+                    Ontario's
+                  </Link>{" "}
+                  fastest-growing cities, this thoughtfully planned community
+                  combines suburban tranquility with convenient access to urban
+                  amenities, making it a prime choice for{" "}
+                  <Link
+                    href="/blogs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-blue-700 hover:text-blue-900"
+                  >
+                    first-time buyers
+                  </Link>
+                  , families, and{" "}
+                  <Link
+                    href="/blog"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-blue-700 hover:text-blue-900"
+                  >
+                    real estate investors alike
+                  </Link>
+                  . While the occupancy date is{" "}
+                  {data.occupancy || "still to be announced"}, early registrants
+                  can now request floor plans, parking prices, locker prices,
+                  and estimated maintenance fees.
+                </p>
+                <p className="font-medium">
+                  Don't miss out on this incredible opportunity to be part of
+                  the{" "}
+                  <Link
+                    href={`/pre-construction-homes/${slugify(
+                      data.project_name
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-blue-700 hover:text-blue-900"
+                  >
+                    {data.project_name} community
+                  </Link>{" "}
+                  —{" "}
+                  <Link
+                    href="/contact-us"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-blue-700 hover:text-blue-900"
+                  >
+                    register today{" "}
+                  </Link>
+                  for priority updates and early access!
+                </p>
+              </div>
+            </div>
+
+            <div className="max-w-3xl mx-auto mt-40">
+              <h2 className="text-2xl font-extrabold text-center my-4 border-b border-gray-800 pb-4">
+                Frequently Asked Questions about {data.project_name}
+              </h2>
+              <Accordion type="single" collapsible className="w-full">
+                {accordionData.map((item, index) => (
+                  <AccordionItem key={index} value={`item-${index}`}>
+                    <AccordionTrigger className="hover:no-underline text-start items-center">
+                      {item.title}
+                    </AccordionTrigger>
+                    <AccordionContent>{item.content}</AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+            <div className="mt-40"></div>
+            <div className="block">
+              <div className="flex flex-col items-center mb-4 md:mb-5">
+                <Image
+                  src="/contact-bottom-2.png"
+                  alt="Real Estate Agent"
+                  width={300}
+                  height={300}
+                  className="rounded-full mb-6 md:mb-8 w-[200px] h-[200px] md:w-[300px] md:h-[300px] object-cover"
+                  priority
+                />
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2 text-center">
+                  More about {data.project_name}
+                </h2>
+                <p className="text-gray-600 text-center text-sm md:text-base">
+                  Get VIP Access and be on priority list
+                </p>
+              </div>
+              <BottomContactForm
+                proj_name={data.project_name}
+                city="Project Detail Page"
+                image={false}
+              ></BottomContactForm>
+            </div>
           </div>
+          {/* Add Related Listings Section after FAQ */}
+          {data.related1 && data.related1.length > 0 && (
+            <div className="max-w-7xl mx-auto px-4 mt-40 mb-20">
+              <div className="flex justify-between items-center mb-8">
+                <Link
+                  href={`/${params.city}`}
+                  className="text-2xl md:text-3xl font-bold text-gray-900 border-b-2 border-gray-300 hover:border-gray-800 transition-all duration-300 cursor-pointer"
+                >
+                  See similar preconstruction homes in {params.city}
+                </Link>
+                <Link href={`/${params.city}`} className="text-gray-600 mt-2">
+                  View All
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 md:gap-3">
+                {related &&
+                  related.map((item) => (
+                    <div className="col" key={item.id}>
+                      <CondoCard {...item} />
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="container">
+        <Breadcrumb
+          homeElement={"Home"}
+          separator={
+            <span>
+              {" "}
+              <svg
+                className="svg text-black w-[18px] h-[18px]"
+                viewBox="0 0 32 32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17.65 16.513l-7.147-7.055 1.868-1.893 9.068 8.951-9.069 8.927-1.866-1.896z"
+                  fill={"#869099"}
+                ></path>
+              </svg>{" "}
+            </span>
+          }
+          activeClasses="text-black"
+          containerClasses="flex items-center p-0 m-0 pt-4 breadcrumb"
+          listClasses="mx-1"
+          capitalizeLinks
+        />
+        <div className="max-w-7xl mx-auto px-0 sm:px-4">
+          <div className="w-full mt-2 md:mt-2 px-2 md:px-0"></div>
+          <Gallery
+            images={data.image}
+            project_name={data.project_name}
+          ></Gallery>
+          <ListingInfo house_detail={data} city={params.city} />
           <div className="py-5 my-5 d-none d-md-block">
             <BottomContactForm
               proj_name={data.project_name}
@@ -367,11 +510,11 @@ export default async function Home({ params }) {
           <div>
             <div className="d-flex flex-column">
               <h2 className="main-title">
-                Similar New Construction Homes in {data.city.name} ( 2023 )
+                Similar New Construction Homes in {data.city.name} ( 2025 )
               </h2>
             </div>
             <div className="py-2"></div>
-            <div className="row row-cols-1 row-cols-md-4 gy-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4">
               {related &&
                 related.map((item) => (
                   <div className="col" key={item.id}>

@@ -8,6 +8,7 @@ import { fetchBlogPostByCity } from "@/app/api/blogs";
 import BlogCard from "@/components/BlogCard";
 import Link from "next/link";
 import EventBanner from "@/components/Banner";
+import HomebabaAdvantage from "@/components/HomebabaAdvantage";
 
 async function getData(city) {
   const res = await fetch(
@@ -217,7 +218,7 @@ export default async function Home({ params }) {
           </div>
           <div className="pt-5 mt-5"></div>
           <div className="pt-5 mt-5"></div>
-          <DolphyAdvantage></DolphyAdvantage>
+          <HomebabaAdvantage />
           <div className="pt-5 mt-5"></div>
           <div className="mb-5">
             <h3 className="fs-2">

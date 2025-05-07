@@ -39,9 +39,7 @@ export default function Gallery(props) {
               key={no}
             >
               <img
-                alt={`${props.project_name} located at ${
-                  props.project_address
-                } image ${no + 1}`}
+                alt={`${props.project_name} image ${no + 1}`}
                 className="img-fluid w-full h-full rounded-md"
                 src={`${image.image}`}
               />

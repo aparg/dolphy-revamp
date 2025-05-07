@@ -1,10 +1,13 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import SocialMediaShare from "@/components/SocialMediaShare";
 import ProjectLocation from "@/components/listing/ProjectLocation";
 import Neighbourhood from "@/components/listing/Neighbourhood";
 import nFormatter from "@/helpers/nFormatter";
-import ListingInteractions from "./ListingInteractions";
 import Head from "next/head";
+import FloorPlanSection from "@/components/listing/FloorPlanSection";
+import CollapsibleContent from "./CollapsibleContent";
+import RequestPriceButton from "./RequestPriceButton";
 // Dynamically import WalkScore with no SSR
 const WalkScore = dynamic(() => import("./WalkScore"), {
   ssr: false,
@@ -78,65 +81,62 @@ export default function ListingInfo({ house_detail, city }) {
         <div className="flex flex-col">
           {/* Header Section */}
           <div className="flex flex-col gap-1 md:gap-2">
-            <div className="flex items-center gap-2 mt-4">
-              {house_detail.is_featured && (
-                <span className=" bg-blue-500 px-1.5 py-0.5 rounded-[3px] text-[9px] font-medium text-white flex items-center gap-0.5 shadow-sm">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={18}
-                    height={18}
-                    fill="currentColor"
-                    className="bi bi-star"
-                    viewBox="0 0 22 22"
-                  >
-                    <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
-                  </svg>
-                  Featured
-                </span>
-              )}
+            <div className="flex items-end justify-start gap-1 mt-1">
+              <h1 className="text-2xl md:text-4xl leading-none text-black font-black whitespace-nowrap overflow-hidden text-ellipsis">
+                {house_detail.project_name}
+              </h1>
+              <div className="flex items-center gap-2">
+                {house_detail.is_featured && (
+                  <span className="bg-blue-500 px-1.5 py-0.5 rounded-[3px] text-[9px] font-medium text-white flex items-center gap-0.5 shadow-sm">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={18}
+                      height={18}
+                      fill="currentColor"
+                      className="bi bi-star"
+                      viewBox="0 0 22 22"
+                    >
+                      <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
+                    </svg>
+                    Featured
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="flex items-center gap-2 my-1">
+              <h2 className="text-sm md:text-xl font-[400]">
+                {house_detail.price_starting_from === 0 && `Price Coming Soon`}
+                {house_detail.price_starting_from > 0 &&
+                  `Starting From Low $${nFormatter(
+                    house_detail.price_starting_from
+                  )}`}
+              </h2>
+              <RequestPriceButton
+                projectName={house_detail.project_name}
+                city={house_detail.city.name}
+              />
             </div>
 
-            <h1 className="text-3xl md:text-[3rem] text-[red] font-black leading-[3rem]">
-              {house_detail.project_name}
-            </h1>
-            <h2 className="text-2xl md:text-3xl font-[700]">
-              {house_detail.price_starting_from === 0 && `Price Coming Soon`}
-              {house_detail.price_starting_from > 0 &&
-                `Starting From Low $${nFormatter(
-                  house_detail.price_starting_from
-                )}`}
-            </h2>
+            <SocialMediaShare />
           </div>
-          <div className="mt-10">
+          <div>
             <section aria-labelledby="about-heading">
-              <h2
-                id="about-heading"
-                className="text-2xl md:text-3xl font-[800] mb-4"
-              >
-                About {house_detail.project_name}
-              </h2>
               <div className="bg-white rounded-lg p-0">
                 <dl>
                   <div className="py-2">
-                    <dt className="text-lg font-semibold text-gray-900">
-                      Developed by
-                    </dt>
-                    <dd className="mt-2">
-                      <Link
-                        href={`/developers/${house_detail.developer.slug}`}
-                        className="text-blue-600 hover:text-blue-800 font-medium"
-                      >
-                        {house_detail.developer.name}
-                      </Link>
-                    </dd>
-                  </div>
-
-                  <div className="py-2">
-                    <dt className="text-lg font-semibold text-gray-900">
-                      Location Details
-                    </dt>
                     <dd className="mt-2">
                       <ul className="space-y-3 p-0 m-0">
+                        <li className="flex items-center text-gray-600">
+                          <span className="w-28 font-medium text-black">
+                            Developer:
+                          </span>
+                          <Link
+                            href={`/developers/${house_detail.developer.slug}`}
+                            className="text-blue-600 hover:underline"
+                          >
+                            {house_detail.developer.name}
+                          </Link>
+                        </li>
                         <li className="flex items-center text-gray-600">
                           <span className="w-28 font-medium text-black">
                             City:
@@ -166,11 +166,8 @@ export default function ListingInfo({ house_detail, city }) {
                     </dd>
                   </div>
 
-                  <div className="py-2">
-                    <dt className="text-lg font-semibold text-gray-900">
-                      Project Information
-                    </dt>
-                    <dd className="mt-2">
+                  <div>
+                    <dd>
                       <ul className="space-y-3 p-0 m-0">
                         <li className="flex items-center text-gray-600">
                           <span className="w-28 font-medium text-black">
@@ -202,51 +199,39 @@ export default function ListingInfo({ house_detail, city }) {
                       </ul>
                     </dd>
                   </div>
-
-                  {/* Interactive Buttons Section */}
-                  <div className="py-4">
-                    <ListingInteractions house_detail={house_detail} />
-                  </div>
                 </dl>
               </div>
             </section>
           </div>
-          <div className="mt-20">
-            <h2 className="text-2xl md:text-3xl font-black mb-2">
-              Project Details: {house_detail.project_name} in{" "}
-              {house_detail.city.name}
-            </h2>
-            <div className="text-start text-inside">
-              <div
-                className="prose max-w-none text-sm md:text-base text-gray-600 leading-10"
-                dangerouslySetInnerHTML={{
-                  __html: house_detail.description,
-                }}
-              />
-            </div>
+          <div className="my-16">
+            <CollapsibleContent
+              title="Project Details"
+              subtitle={`Check out project details of ${house_detail.project_name}`}
+              content={house_detail.description}
+              ctaText="Request More Details"
+              ctaType="project-details"
+              houseDetail={house_detail}
+            />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 my-20 gap-4">
-            <div>
-              <h3 className="text-[1.25rem] text-[black] font-[700] mb-2">
-                Deposit Structure
-              </h3>
-              <div
-                className="iframe-container leading-9 space-y-5"
-                dangerouslySetInnerHTML={{
-                  __html: house_detail.deposit_structure,
-                }}
-              ></div>
-            </div>
-            <div>
-              <h3 className="text-[1.25rem] text-[black] font-[700] mb-2">
-                Facts and Features
-              </h3>
-              <div
-                className="iframe-container leading-9 space-y-5"
-                dangerouslySetInnerHTML={{
-                  __html: house_detail.facts_about,
-                }}
-              ></div>
+          <div>
+            <CollapsibleContent
+              title="Deposit Structure"
+              subtitle={`Check out deposit structure of ${house_detail.project_name}`}
+              content={house_detail.deposit_structure}
+              ctaText="Request Deposit Info"
+              ctaType="deposit-structure"
+              houseDetail={house_detail}
+            />
+            <FloorPlanSection projectName={house_detail.project_name} />
+            <div className="mb-16">
+              <CollapsibleContent
+                title="Facts and Features"
+                subtitle={`Check out facts and features of ${house_detail.project_name}`}
+                content={house_detail.facts_about}
+                ctaText="Request Full Package"
+                ctaType="full-package"
+                houseDetail={house_detail}
+              />
             </div>
           </div>
           {house_detail.project_address && (
@@ -257,9 +242,7 @@ export default function ListingInfo({ house_detail, city }) {
           )}
           <ProjectLocation
             projectName={house_detail.project_name}
-            address={house_detail.project_address}
-            latitude={house_detail.latitute}
-            longitude={house_detail.longitude}
+            address={`${house_detail.project_address}, ${city}, ON`}
           />
           <Neighbourhood
             projectName={house_detail.project_name}

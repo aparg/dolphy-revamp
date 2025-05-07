@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import DolphyAdvantage from "@/components/DolphyAdvantage";
 import Link from "next/link";
 import SearchBar from "@/components/SearchBar";
+import HomebabaAdvantage from "@/components/HomebabaAdvantage";
 
 async function getData(city) {
   const res = await fetch("https://api.dolphy.ca/api/all-precons", {
@@ -125,7 +126,7 @@ export default async function Home({ params }) {
           </div>
           <div className="py-2"></div>
           <div className="pt-5 mt-5"></div>
-          <DolphyAdvantage />
+          <HomebabaAdvantage />
           <div className="py-5 my-5" id="mycontact">
             <BottomContactForm
               proj_name="All"
