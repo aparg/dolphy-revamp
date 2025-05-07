@@ -4,8 +4,6 @@ import ContactFormSubmit from "./ContactFormSubmit";
 import { useRouter } from "next/navigation";
 
 export default function BottomContactForm(props) {
-  console.log(props.image);
-  const hasImage = props?.image ? props?.image : true;
   const [submitbtn, setSubmitbtn] = useState("Send a message");
   const router = useRouter();
   const [credentials, setCredentials] = useState({
@@ -34,18 +32,20 @@ export default function BottomContactForm(props) {
   };
   return (
     <div className="max-w-4xl mx-auto my-10">
-      <div className="row justify-content-center">
-        {hasImage && (
-          <img
-            src="/contact-bottom-2.png"
-            alt="dce"
-            className="img-fluid w-36 mb-3 mx-auto"
-          />
-        )}
-      </div>
-      <h2 className="fw-mine text-center px-md-4 fs-4">
-        Contact Dolphy Team Today
-      </h2>
+      {(props?.immage || false) && (
+        <>
+          <div className="row justify-content-center">
+            <img
+              src="/contact-bottom-2.png"
+              alt="dce"
+              className="img-fluid w-36 mb-3 mx-auto"
+            />
+          </div>
+          <h2 className="fw-mine text-center px-md-4 fs-4">
+            Contact Dolphy Team Today
+          </h2>
+        </>
+      )}
       <div className="row row-cols-1 row-cols-md-3 mt-3">
         <div className="col-md-3"></div>
         <div className="col-md-6"></div>
