@@ -119,48 +119,50 @@ export default async function Home() {
 
       <HeroSection />
       {/* <BestExperience /> */}
-      <PreConstructionCities />
-      {/* <PriceDroppedHomes /> */}
-      <ResaleCitiesSection />
-      {/* <CalgaryHomes /> */}
-      <div className="my-10 md:my-20"></div>
-      <HomebabaAdvantage />
-      {/* <HomebabaPromo /> */}
-      {/* <CommunityGive /> */}
-      {/* <CallToAction /> */}
-      <div className="my-10 md:my-32"></div>
-      {/* <RecentBlogs blogs={blogsData} /> */}
-      <div className="my-10 md:my-32"></div>
-      {/* <FeaturedProjects /> */}
-      <div className="my-10 md:my-32"></div>
-      {/* <MaldivesVacation /> */}
-      {/* <Testimonial
+      <div className="mx-60">
+        <PreConstructionCities />
+        {/* <PriceDroppedHomes /> */}
+        <ResaleCitiesSection />
+        {/* <CalgaryHomes /> */}
+        <div className="my-10 md:my-20"></div>
+        <HomebabaAdvantage />
+        {/* <HomebabaPromo /> */}
+        {/* <CommunityGive /> */}
+        {/* <CallToAction /> */}
+        <div className="my-10 md:my-32"></div>
+        {/* <RecentBlogs blogs={blogsData} /> */}
+        <div className="my-10 md:my-32"></div>
+        {/* <FeaturedProjects /> */}
+        <div className="my-10 md:my-32"></div>
+        {/* <MaldivesVacation /> */}
+        {/* <Testimonial
         testimonialText="This platform is exactly what new realtors need, a fantastic way to search and explore projects"
         authorName="Josh Camaro"
         authorPosition="Real Estate Professional"
         authorRole=""
         companyLogo="/testmonials/J.png"
       /> */}
-      <div className="flex flex-col items-center mb-4 md:mb-5">
-        <Image
-          src="/contact-bottom-2.png"
-          alt="Real Estate Agent"
-          width={300}
-          height={300}
-          className="rounded-full mb-6 md:mb-8 w-[200px] h-[200px] md:w-[300px] md:h-[300px] object-cover"
-          priority
-        />
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2 text-center">
-          Looking to buy a New Home?
-        </h2>
-        <p className="text-gray-600 text-center text-sm md:text-base">
-          Don't know where to start? Contact us today!
-        </p>
-      </div>
-      <ContactForm />
-      <div className="my-10 md:my-32"></div>
+        <div className="flex flex-col items-center mb-4 md:mb-5">
+          <Image
+            src="/contact-bottom-2.png"
+            alt="Real Estate Agent"
+            width={300}
+            height={300}
+            className="rounded-full mb-6 md:mb-8 w-[200px] h-[200px] md:w-[300px] md:h-[300px] object-cover"
+            priority
+          />
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2 text-center">
+            Looking to buy a New Home?
+          </h2>
+          <p className="text-gray-600 text-center text-sm md:text-base">
+            Don't know where to start? Contact us today!
+          </p>
+        </div>
+        <ContactForm />
+        <div className="my-10 md:my-32"></div>
 
-      <CityLinks />
+        <CityLinks />
+      </div>
     </>
   );
 }

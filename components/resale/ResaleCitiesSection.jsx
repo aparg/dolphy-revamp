@@ -85,7 +85,7 @@ const citiesData = [
 
 const ResaleCitiesSection = ({ saleLease = "for sale" }) => {
   return (
-    <section className="bg-white pt-10">
+    <section className="bg-white pt-10 mt-20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-8">
           <Link href="/resale/ontario">

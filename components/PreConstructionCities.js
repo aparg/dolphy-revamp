@@ -67,7 +67,7 @@ const cities = [
 
 const PreConstructionCities = () => {
   return (
-    <section className="py-16">
+    <section className="py-16 mt-20">
       <div className="container mx-auto px-4">
         <h2 className="text-[1.2rem] md:text-[2.1em] font-extrabold leading-tight md:leading-normal w-full m-0 p-0 text-center">
           <Link href="/pre-construction-homes">

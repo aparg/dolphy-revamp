@@ -1,5 +1,7 @@
 import Link from "next/link";
 import nFormatter from "./nFormatter";
+import { ArrowUpRight } from "lucide-react";
+import ContactFormSubmit from "./ContactFormSubmit";
 
 export default function CondoCard(props) {
   function checkPricing(prii) {
@@ -37,6 +39,41 @@ export default function CondoCard(props) {
     "December",
   ];
 
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [submitBtn, setSubmitBtn] = useState("Submit");
+  const [credentials, setCredentials] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    message: "",
+    realtor: "No",
+    project_namee: houseDetail?.project_name || "Pre construction Homes",
+    cityy: houseDetail?.city?.name || "Ontario",
+  });
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight);
+    }
+  }, [content]);
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setCredentials((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    ContactFormSubmit(credentials, setSubmitBtn, setCredentials);
+    const timer = setTimeout(() => {
+      setShowContactModal(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  };
   return (
     <>
       <div className="card border-0 shadow-lg my-3 p-[1rem] rounded-2xl overflow-hidden">
@@ -70,31 +107,35 @@ export default function CondoCard(props) {
         </div>
         <div className="p-4">
           <h3 className="text-xl font-bold">{props.project_name}</h3>
+          <button
+            className="bg-[#006169] flex px-3 py-1 rounded-3xl text-white my-2 text-xs items-center hover:scale-110 duration-500"
+            onClick={() => setShowRequestModal(true)}
+          >
+            Request Price List <ArrowUpRight className="w-3 ml-2" />
+          </button>
           <p className="text-gray-600 leading-6">{props.project_type}</p>
-          <h4 className="text-[0.9rem] font-normal text-[#006169] my-0">
+          <h4 className="text-[0.9rem] font-normal text-[#0f1010] my-0">
             {checkPricing(props.price_starting_from)}
           </h4>
           <h5 className="truncate text-[0.9rem] my-0">
             {props.project_address}
           </h5>
           <p className="text-[0.9rem] truncate my-0">
-            Occupancy {props.occupancy}
+            Occupancy: {props.occupancy}
           </p>
-          <div className="flex text-[1.4rem] justify-between items-center bg-[#f5f5f5] rounded-xl p-4 my-2">
-            <div className="flex flex-col justify-between w-[50%] items-center">
-              <span className="font-bold text-sm">Launch Price</span>
-              <span className="text-[#006169] font-extrabold text-base text-center">{`$ ${props.price_starting_from}`}</span>
-            </div>
-            <div className="h-10 border-gray-400 border-r-[2px]"></div>
-            <div className="flex flex-col justify-between w-[50%] items-center px-3">
-              <span className="font-bold text-sm">Status</span>
-              <span className="text-[#006169] font-extrabold text-base text-center">
-                {props.occupancy}
-              </span>
-            </div>
-          </div>
         </div>
       </div>
+      {showContactModal && (
+        <RequestModal
+          requestType={ctaType}
+          credentials={credentials}
+          handleChange={handleChange}
+          handleFormSubmit={handleFormSubmit}
+          handleCloseModal={() => setShowContactModal(false)}
+          projectName={props?.project_name}
+          submitBtn={submitBtn}
+        />
+      )}
     </>
   );
 }
