@@ -35,7 +35,7 @@ import {
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL || "https://admin.dolphy.ca";
+const baseUrl = "https://admin.dolphy.ca";
 
 export default function PreconstructionForm({ preconId = null }) {
   const router = useRouter();
