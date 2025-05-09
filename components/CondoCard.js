@@ -2,6 +2,7 @@ import Link from "next/link";
 import nFormatter from "./nFormatter";
 import { ArrowUpRight } from "lucide-react";
 import ContactFormSubmit from "./ContactFormSubmit";
+import RequestModal from "./RequestModal";
 
 export default function CondoCard(props) {
   function checkPricing(prii) {
@@ -123,6 +124,7 @@ export default function CondoCard(props) {
           <p className="text-[0.9rem] truncate my-0">
             Occupancy: {props.occupancy}
           </p>
+          /Users/apar/work/deploy-site/homebaba/components/RequestModal.js
         </div>
       </div>
       {showContactModal && (
